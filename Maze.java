@@ -1,12 +1,12 @@
 import java.util.*;
 import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 public class Maze{
 
     private char[][]maze;
     private boolean animate;//false by default
-    import java.io.File;
-    import java.io.FileNotFoundException;
-    import java.util.Scanner;
       public static void main(String args[]) throws FileNotFoundException {
             //instead of a try/catch, you can throw the FileNotFoundException.
             //This is generally bad behavior
@@ -22,7 +22,7 @@ public class Maze{
                 System.out.println(line);//hopefully you can do other things with the line
             }
         }
-    }
+
 
     /*Constructor loads a maze text file, and sets animate to false by default.
 
@@ -38,6 +38,7 @@ public class Maze{
          throw a FileNotFoundException or IllegalStateException
     */
     public Maze(String filename) throws FileNotFoundException{
+    return "";
         //COMPLETE CONSTRUCTOR
     }
 
@@ -64,6 +65,15 @@ public class Maze{
       Since the constructor exits when the file is not found or is missing an E or S, we can assume it exists.
     */
     public int solve(){
+        int locx = 0;
+        int locy = 0;
+        for (int x = 0; x < maze.length; x ++){
+            for (int y = 0; y < maze[0].length; y ++){
+                if (maze [x] [y].equals("S"))
+                locx = x;
+                locy = y;
+            }
+        }
             //find the location of the S.
 
             //erase the S
