@@ -7,6 +7,7 @@ public class Maze{
 
     private char[][]maze;
     private boolean animate;//false by default
+    private int num;
       public static void main(String args[]) throws FileNotFoundException {
             //instead of a try/catch, you can throw the FileNotFoundException.
             //This is generally bad behavior
@@ -75,11 +76,21 @@ public class Maze{
          catch (InterruptedException e) {
          }
      }
-
+//          /
+//         /
+//        /
+//  \    /
+//   \  /
+//    v
     public void setAnimate(boolean b){
         animate = b;
     }
-
+    //          /
+    //         /
+    //        /
+    //  \    /
+    //   \  /
+    //    v
     public void clearTerminal(){
         //erase terminal, go to top left of screen.
         System.out.println("\033[2J\033[1;1H");
@@ -90,6 +101,13 @@ public class Maze{
       Note the helper function has the same name, but different parameters.
       Since the constructor exits when the file is not found or is missing an E or S, we can assume it exists.
     */
+    //find the location of the S.
+
+    //erase the S
+
+    //and start solving at the location of the s.
+    //return solve(???,???);
+
     public int solve(){
         int locx = 0;
         int locy = 0;
@@ -105,15 +123,9 @@ public class Maze{
             }
         }
     }
-            //find the location of the S.
-
-            //erase the S
-
-            //and start solving at the location of the s.
-            //return solve(???,???);
-
     }
-    return locx;
+    solve (locx, locy);
+    return num;
 }
 
     /*
@@ -129,17 +141,34 @@ public class Maze{
         All visited spots that were not part of the solution are changed to '.'
         All visited spots that are part of the solution are changed to '@'
     */
-    private int solve(int row, int col){ //you can add more parameters since this is private
+    public boolean addKing (int r, int c){
+        if (maze [r] [c] == 'o' || maze [r] [c] = '#'){
+            return false;
+        }
+        return true;
+    }
 
-        //automatic animation! You are welcome.
+    private void solve(int row, int col){ //you can add more parameters since this is private
+        if (maze [r] [c] == 'o' || maze [r] [c] = '#'){
+            return false;
+        }
+        //automatic animation! You are welcome. Thank you.
         if(animate){
             clearTerminal();
             System.out.println(this);
             wait(20);
         }
-
+        if (maze [r] [c] == 'E'){
+            return num;
+        }
         //COMPLETE SOLVE
-        return -1; //so it compiles
+        if (addKing(row, col)){
+        maze [row] [col] = 'o';
+        num ++;
+        solve(row + 1, col);
+        solve(row - 1, col);
+        solve(row, col + 1);
+        solve(row, col - 1);
     }
-
+}
 }
