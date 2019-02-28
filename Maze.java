@@ -38,9 +38,35 @@ public class Maze{
          throw a FileNotFoundException or IllegalStateException
     */
     public Maze(String filename) throws FileNotFoundException{
-    return "";
+        int i = 0;
+        int z = 0;
+                //instead of a try/catch, you can throw the FileNotFoundException.
+                //This is generally bad behavior
+
+                File text = new File(filename);
+                // can be a path like: "/full/path/to/file.txt" or "../data/file.txt"
+
+                //inf stands for the input file
+                Scanner x = new Scanner(text);
+                Scanner y = new Scanner(text);
+                Scanner tex = new Scanner(text);
+
+                while(x.hasNext()){
+                    i ++;
+                }
+                while(y.hasNextLine()){
+                    z ++;
+                }
+                while(tex.hasNextLine()){
+                for (int a = 0; a < i; a ++){
+                    for (int b = 0; b < z; b ++){
+                        maze [a][b] = tex.nextLine().charAt(b);
+                    }
+
+                }}
+                // System.out.println(hey);
+        }
         //COMPLETE CONSTRUCTOR
-    }
 
     private void wait(int millis){
          try {
@@ -67,20 +93,28 @@ public class Maze{
     public int solve(){
         int locx = 0;
         int locy = 0;
+        boolean stop = false;
+        while(!stop){
         for (int x = 0; x < maze.length; x ++){
             for (int y = 0; y < maze[0].length; y ++){
-                if (maze [x] [y].equals("S"))
+                if (maze [x] [y] == 'S'){
                 locx = x;
                 locy = y;
+                maze [x] [y] = 'o';
+                stop = true;
             }
         }
+    }
             //find the location of the S.
 
             //erase the S
 
             //and start solving at the location of the s.
             //return solve(???,???);
+
     }
+    return locx;
+}
 
     /*
       Recursive Solve function:
