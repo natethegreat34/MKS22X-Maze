@@ -8,23 +8,6 @@ public class Maze{
     private char[][]maze;
     private boolean animate;//false by default
     private int num;
-      public static void main(String args[]) throws FileNotFoundException {
-            //instead of a try/catch, you can throw the FileNotFoundException.
-            //This is generally bad behavior
-
-            File text = new File("input.txt");
-            // can be a path like: "/full/path/to/file.txt" or "../data/file.txt"
-
-            //inf stands for the input file
-            Scanner inf = new Scanner(text);
-
-            while(inf.hasNextLine()){
-                String line = inf.nextLine();
-                System.out.println(line);//hopefully you can do other things with the line
-            }
-        }
-
-
     /*Constructor loads a maze text file, and sets animate to false by default.
 
       1. The file contains a rectangular ascii maze, made with the following 4 characters:
@@ -142,27 +125,27 @@ public class Maze{
         All visited spots that are part of the solution are changed to '@'
     */
     public boolean addKing (int r, int c){
-        if (maze [r] [c] == 'o' || maze [r] [c] = '#'){
+        if (maze [r] [c] == 'o' || maze [r] [c] == '#'){
             return false;
         }
         return true;
     }
 
     private void solve(int row, int col){ //you can add more parameters since this is private
-        if (maze [r] [c] == 'o' || maze [r] [c] = '#'){
-            return false;
+        if (maze [row] [col] == 'o' || maze [row] [col] == '#'){
+            ;
         }
         //automatic animation! You are welcome. Thank you.
-        if(animate){
+        else if(animate){
             clearTerminal();
             System.out.println(this);
             wait(20);
         }
-        if (maze [r] [c] == 'E'){
-            return num;
+        if (maze [row] [col] == 'E'){
+            ;
         }
         //COMPLETE SOLVE
-        if (addKing(row, col)){
+        else if (addKing(row, col)){
         maze [row] [col] = 'o';
         num ++;
         solve(row + 1, col);
