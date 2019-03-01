@@ -7,6 +7,17 @@ public class Maze{
 
     private char[][]maze;
     private boolean animate;//false by default
+    public static void main(String[] args) {
+    try{
+      Maze m = new Maze(args[0]);
+      System.out.println(m.toString());
+    }catch(FileNotFoundException e){
+      System.out.println("File Not Found");
+    }
+
+
+  }
+
     /*Constructor loads a maze text file, and sets animate to false by default.
 
       1. The file contains a rectangular ascii maze, made with the following 4 characters:
@@ -91,6 +102,16 @@ public class Maze{
     //and start solving at the location of the s.
     //return solve(???,???);
 
+public String toString(){
+    String display = "";
+    for (int x = 0; x < maze.length;x ++){
+        for (int y = 0; y < maze[0].length;y  ++){
+            display = display + maze [x][y];
+    }
+    display = display + "\n";
+}
+return display;
+}
     public int solve(){
         System.out.println("ho");
         int locx = 0;
@@ -102,7 +123,7 @@ public class Maze{
                 if (maze [x] [y] == 'S'){
                 locx = x;
                 locy = y;
-                maze [x] [y] = 'o';
+                maze [x] [y] = '@';
                 stop = true;
             }
         }
@@ -125,7 +146,7 @@ public class Maze{
         All visited spots that are part of the solution are changed to '@'
     */
     public boolean addKing (int r, int c){
-        if (maze [r] [c] == 'o' || maze [r] [c] == '#'){
+        if (maze [r] [c] == '.' || maze [r] [c] == '#' || maze [r] [c] == '@'){
             return false;
         }
         return true;
@@ -133,11 +154,11 @@ public class Maze{
 
     private int solve(int row, int col, int num){ //you can add more parameters since this is private
         if (addKing(row, col)){
-        if (maze [row + 1][col] == 'E'){
-            return num;
-        }
+            if (maze [row + 1][col] == 'E'){
+                return num;
+            }
         else {
-            maze [row] [col] = 'o';
+            maze [row] [col] = '@';
             int left =  solve(row, col - 1, num + 1);
             if (left != -1){
                 return left;
@@ -162,6 +183,7 @@ public class Maze{
             System.out.println(this);
             wait(20);
         }
+        maze [row] [col] = '.';
         return -1;
         //COMPLETE SOLVE
 
