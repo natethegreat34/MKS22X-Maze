@@ -7,7 +7,6 @@ public class Maze{
 
     private char[][]maze;
     private boolean animate;//false by default
-    private int num;
     /*Constructor loads a maze text file, and sets animate to false by default.
 
       1. The file contains a rectangular ascii maze, made with the following 4 characters:
@@ -22,6 +21,7 @@ public class Maze{
          throw a FileNotFoundException or IllegalStateException
     */
     public Maze(String filename) throws FileNotFoundException{
+        // System.out.println("po");
         int i = 0;
         int z = 0;
                 //instead of a try/catch, you can throw the FileNotFoundException.
@@ -92,6 +92,7 @@ public class Maze{
     //return solve(???,???);
 
     public int solve(){
+        System.out.println("ho");
         int locx = 0;
         int locy = 0;
         boolean stop = false;
@@ -107,8 +108,7 @@ public class Maze{
         }
     }
     }
-    solve (locx, locy);
-    return num;
+    return solve (locx, locy, 0);
 }
 
     /*
@@ -131,27 +131,39 @@ public class Maze{
         return true;
     }
 
-    private void solve(int row, int col){ //you can add more parameters since this is private
-        if (maze [row] [col] == 'o' || maze [row] [col] == '#'){
-            ;
+    private int solve(int row, int col, int num){ //you can add more parameters since this is private
+        if (addKing(row, col)){
+        if (maze [row + 1][col] == 'E'){
+            return num;
         }
+        else {
+            maze [row] [col] = 'o';
+            int left =  solve(row, col - 1, num + 1);
+            if (left != -1){
+                return left;
+            }
+            int right = solve(row, col + 1, num + 1);
+            if (right != -1){
+                return right;
+            }
+            int up =    solve(row - 1, col, num + 1);
+            if (up != -1){
+                return up;
+            }
+            int down =  solve(row + 1, col, num + 1);
+            if (down != -1){
+                return down;
+            }
+        }
+    }
         //automatic animation! You are welcome. Thank you.
-        else if(animate){
+        if(animate){
             clearTerminal();
             System.out.println(this);
             wait(20);
         }
-        if (maze [row] [col] == 'E'){
-            ;
-        }
+        return -1;
         //COMPLETE SOLVE
-        else if (addKing(row, col)){
-        maze [row] [col] = 'o';
-        num ++;
-        solve(row + 1, col);
-        solve(row - 1, col);
-        solve(row, col + 1);
-        solve(row, col - 1);
-    }
+
 }
 }
