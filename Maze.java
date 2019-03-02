@@ -21,6 +21,7 @@ public class Maze{
          throw a FileNotFoundException or IllegalStateException
     */
     public Maze(String filename) throws FileNotFoundException{
+
         File text = new File(filename);
         // can be a path like: "/full/path/to/file.txt" or "../data/file.txt"
 
@@ -39,6 +40,31 @@ public class Maze{
                 maze [q][w] = potato.get(q).charAt(w);
         }
     }
+if (!valid ()){
+    throw new IllegalStateException("");
+}
+}
+//when there is not exactly 1 E and 1 S it is not valid
+private boolean valid (){
+    boolean founds = false;
+    boolean founde = false;
+    for (int x = 0; x < maze.length;x ++){
+        for (int y = 0; y < maze[0].length;y  ++){
+            if (maze [x][y] == 'S'){
+                if (founds){
+                    return false;
+                }
+                founds = true;
+            }
+            if (maze [x][y] == 'E'){
+                if (founde){
+                    return false;
+                }
+                founde = true;
+            }
+        }
+    }
+    return founds && founde;
 }
         //COMPLETE CONSTRUCTOR
 
@@ -156,13 +182,13 @@ return display;
             int down =  solve(row + 1, col, num + 1);
             if (down != -1){
                 return down;
+
         }
-    }
-    // All visited spots that were not part of the solution are changed to '.'
-    // All visited spots that are part of the solution are changed to '@'
-    if (maze [row] [col] == '@'){
+        // All visited spots that are part of the solution are changed to '@'
+        // All visited spots that were not part of the solution are changed to '.'
         maze [row] [col] = '.';
     }
+
         return -1;
         //COMPLETE SOLVE
 
