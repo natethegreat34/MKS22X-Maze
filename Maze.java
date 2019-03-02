@@ -7,17 +7,6 @@ public class Maze{
 
     private char[][]maze;
     private boolean animate;//false by default
-    public static void main(String[] args) {
-    try{
-      Maze m = new Maze(args[0]);
-      System.out.println(m.toString());
-    }catch(FileNotFoundException e){
-      System.out.println("File Not Found");
-    }
-
-
-  }
-
     /*Constructor loads a maze text file, and sets animate to false by default.
 
       1. The file contains a rectangular ascii maze, made with the following 4 characters:
@@ -60,21 +49,11 @@ public class Maze{
          catch (InterruptedException e) {
          }
      }
-//          /
-//         /
-//        /
-//  \    /
-//   \  /
-//    v
+
     public void setAnimate(boolean b){
         animate = b;
     }
-    //          /
-    //         /
-    //        /
-    //  \    /
-    //   \  /
-    //    v
+
     public void clearTerminal(){
         //erase terminal, go to top left of screen.
         System.out.println("\033[2J\033[1;1H");
@@ -111,8 +90,10 @@ return display;
         for (int x = 0; x < maze.length; x ++){
             for (int y = 0; y < maze[0].length; y ++){
                 if (maze [x] [y] == 'S'){
+    //finds the x cor and y cor of the S
                 locx = x;
                 locy = y;
+                // stops the process of finding the S
                 stop = true;
             }
         }
@@ -134,7 +115,9 @@ return display;
         All visited spots that were not part of the solution are changed to '.'
         All visited spots that are part of the solution are changed to '@'
     */
+    // moves like a king besides diagol movements
     public boolean addKing (int r, int c){
+        // checks to see if you the space one is at is a valid  space
         if (maze [r] [c] == '.' || maze [r] [c] == '#' || maze [r] [c] == '@'){
             return false;
         }
@@ -150,11 +133,14 @@ return display;
         }
 
         if (addKing(row, col)){
+            // if the spot is a valid spot and you have reached the end, you are done
             if (maze [row][col] == 'E'){
+                // returns the nnumber of moves it takes to get directly from S to e (shortest possible distance (number of moves)
                 return num;
             }
 
             maze [row] [col] = '@';
+            // mark that you have been here then try all directions
             int left =  solve(row, col - 1, num + 1);
             if (left != -1){
                 return left;
@@ -172,6 +158,8 @@ return display;
                 return down;
         }
     }
+    // All visited spots that were not part of the solution are changed to '.'
+    // All visited spots that are part of the solution are changed to '@'
     if (maze [row] [col] == '@'){
         maze [row] [col] = '.';
     }
