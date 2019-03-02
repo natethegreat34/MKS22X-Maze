@@ -32,7 +32,7 @@ public class Maze{
          throw a FileNotFoundException or IllegalStateException
     */
     public Maze(String filename) throws FileNotFoundException{
-        File text = new File("input.txt");
+        File text = new File(filename);
         // can be a path like: "/full/path/to/file.txt" or "../data/file.txt"
 
         //inf stands for the input file
@@ -47,9 +47,10 @@ public class Maze{
         maze = new char [y][x];
         for (int q = 0; q < y ; q ++){
             for (int w= 0; w < x ; w ++){
-                salad [q][w] = potato.get(q).charAt(w);
+                maze [q][w] = potato.get(q).charAt(w);
         }
     }
+}
         //COMPLETE CONSTRUCTOR
 
     private void wait(int millis){
