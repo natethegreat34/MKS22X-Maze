@@ -152,10 +152,18 @@ return display;
     }
 
     private int solve(int row, int col, int num){ //you can add more parameters since this is private
+        //automatic animation! You are welcome. Thank you.
+        if(animate){
+            clearTerminal();
+            System.out.println(this);
+            wait(20);
+        }
+        
         if (addKing(row, col)){
-            if (maze [row + 1][col] == 'E'){
+            if (maze [row][col] == 'E'){
                 return num;
             }
+
         else {
             maze [row] [col] = '@';
             int left =  solve(row, col - 1, num + 1);
@@ -176,12 +184,7 @@ return display;
             }
         }
     }
-        //automatic animation! You are welcome. Thank you.
-        if(animate){
-            clearTerminal();
-            System.out.println(this);
-            wait(20);
-        }
+
         maze [row] [col] = '.';
         return -1;
         //COMPLETE SOLVE
