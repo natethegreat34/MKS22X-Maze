@@ -123,7 +123,6 @@ return display;
                 if (maze [x] [y] == 'S'){
                 locx = x;
                 locy = y;
-                maze [x] [y] = '@';
                 stop = true;
             }
         }
