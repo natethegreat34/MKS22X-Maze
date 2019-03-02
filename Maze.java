@@ -32,35 +32,24 @@ public class Maze{
          throw a FileNotFoundException or IllegalStateException
     */
     public Maze(String filename) throws FileNotFoundException{
-        // System.out.println("po");
-        int i = 0;
-        int z = 0;
-                //instead of a try/catch, you can throw the FileNotFoundException.
-                //This is generally bad behavior
+        File text = new File("input.txt");
+        // can be a path like: "/full/path/to/file.txt" or "../data/file.txt"
 
-                File text = new File(filename);
-                // can be a path like: "/full/path/to/file.txt" or "../data/file.txt"
-
-                //inf stands for the input file
-                Scanner x = new Scanner(text);
-                Scanner y = new Scanner(text);
-                Scanner tex = new Scanner(text);
-
-                while(x.hasNext()){
-                    i ++;
-                }
-                while(y.hasNextLine()){
-                    z ++;
-                }
-                while(tex.hasNextLine()){
-                for (int a = 0; a < i; a ++){
-                    for (int b = 0; b < z; b ++){
-                        maze [a][b] = tex.nextLine().charAt(b);
-                    }
-
-                }}
-                // System.out.println(hey);
+        //inf stands for the input file
+        Scanner inf = new Scanner(text);
+        ArrayList <String> potato = new ArrayList <String> ();
+        while(inf.hasNextLine()){
+            String line = inf.nextLine();
+            potato.add(line);//hopefully you can do other things with the line
         }
+        int y = potato.size();
+        int x = potato.get(0).length();
+        maze = new char [y][x];
+        for (int q = 0; q < y ; q ++){
+            for (int w= 0; w < x ; w ++){
+                salad [q][w] = potato.get(q).charAt(w);
+        }
+    }
         //COMPLETE CONSTRUCTOR
 
     private void wait(int millis){
@@ -158,13 +147,12 @@ return display;
             System.out.println(this);
             wait(20);
         }
-        
+
         if (addKing(row, col)){
             if (maze [row][col] == 'E'){
                 return num;
             }
 
-        else {
             maze [row] [col] = '@';
             int left =  solve(row, col - 1, num + 1);
             if (left != -1){
@@ -181,11 +169,11 @@ return display;
             int down =  solve(row + 1, col, num + 1);
             if (down != -1){
                 return down;
-            }
         }
     }
-
+    if (maze [row] [col] == '@'){
         maze [row] [col] = '.';
+    }
         return -1;
         //COMPLETE SOLVE
 
